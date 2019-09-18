@@ -1,0 +1,5 @@
+time="2019-09-18T11:59:59+01:00" level=info msg="Config loaded" CONFIG_INIT=DB terminalId=00000000
+time="2019-09-18T11:59:59+01:00" level=info msg="Failed to connect to database Login error: mssql: Login failed for user 'sa'." DB_INIT=DB terminalId=00000000
+time="2019-09-18T12:01:51+01:00" level=info msg="Config loaded" CONFIG_INIT=DB terminalId=00000000
+time="2019-09-18T12:01:51+01:00" level=info msg="Failed to connect to database Login error: mssql: Login failed for user 'sa'." DB_INIT=DB terminalId=00000000
+time="2019-09-18T12:01:51+01:00" level=info msg="Starting Server on localhost:3099 " CONFIG_INIT=DB terminalId=00000000
