@@ -20,4 +20,5 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/tebeka/strftime v0.1.3 // indirect
 	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7
+	gopkg.in/go-playground/assert.v1 v1.2.1
 )

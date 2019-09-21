@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
-	"github.com/gin-gonic/contrib/static"
+	// "github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"github.com/tobi007/angular-go-serve/bind"
+	// "github.com/tobi007/angular-go-serve/bind"
 	"github.com/tobi007/angular-go-serve/controllers"
 	"github.com/tobi007/angular-go-serve/db"
 	"github.com/tobi007/angular-go-serve/middlewares"
@@ -21,14 +21,14 @@ var routerLogger *logrus.Entry
 var timeFormat = "02/Jan/2006:15:04:05 -0700"
 
 
-func NewRouter(bfs *bind.BinaryFileSystem) *gin.Engine {
+func newRouter() *gin.Engine {
 
 	routerLogger = util.GetLogger().WithField("ROUTER_INIT", "DB")
 	router := gin.Default()
 	// Serve the frontend
 
-	router.Use(static.Serve("/", bfs))
-	router.Use(CORSMiddleware())
+	// router.Use(static.Serve("/", bfs))
+	router.Use(cORSMiddleware())
 	auth := middlewares.NewAuthMiddleware(db.GetDB())
 	authMiddleware, err := auth.Middleware()
 
@@ -42,7 +42,10 @@ func NewRouter(bfs *bind.BinaryFileSystem) *gin.Engine {
 	router.POST("/signup", userController.Create)
 
 	v1 := router.Group("api/v1")
+	v1.GET("/health", health)
+
 	v1.GET("/refresh_token", authMiddleware.RefreshHandler)
+	
 	v1.Use(authMiddleware.MiddlewareFunc())
 	{
 		articleGroup := v1.Group("article")
@@ -57,7 +60,11 @@ func NewRouter(bfs *bind.BinaryFileSystem) *gin.Engine {
 
 }
 
-func CORSMiddleware() gin.HandlerFunc {
+func health(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message":"Heath check Successfully",})
+}
+
+func cORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")

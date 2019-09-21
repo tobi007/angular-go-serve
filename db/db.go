@@ -8,6 +8,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mssql"
 	"github.com/sirupsen/logrus"
 	"github.com/tobi007/angular-go-serve/config"
+	// "github.com/tobi007/angular-go-serve/models"
 	"github.com/tobi007/angular-go-serve/util"
 )
 
@@ -30,8 +31,8 @@ func Init() {
 
 	db, err = gorm.Open("mssql", dbSource)
 	if err != nil {
-		dgLogger.Info("Failed to connect to database ", err)
-		dgLogger.Fatal(err)
+		dgLogger.Info("Failed to connect to database: ", err)
+		//dgLogger.Fatal(err)
 	}
 
 	gorm.AddNamingStrategy(&gorm.NamingStrategy{
@@ -39,6 +40,9 @@ func Init() {
 			return strcase.ToLowerCamel(name)
 		},
 	})
+
+	//db.AutoMigrate(&models.User{}, models.User{})
+
 }
 
 func GetDB() *gorm.DB {
