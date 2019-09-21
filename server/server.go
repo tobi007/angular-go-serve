@@ -18,8 +18,10 @@ func Init(bfs *bind.BinaryFileSystem) {
 	config := config.GetConfig()
 
 	r := newRouter()
+
+	// Serve the frontend
 	r.Use(static.Serve("/", bfs))
-	
+
 	serverLogger.Info(fmt.Sprintf("Starting Server on %s:%s ", config.GetString("serverAddress"), config.GetString("serverPort")))
 	err := r.Run(config.GetString("serverAddress") + ":" + config.GetString("serverPort"))
 	if err != nil {

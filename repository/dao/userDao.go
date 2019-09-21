@@ -17,7 +17,7 @@ type userDao struct {
 	Conn *gorm.DB
 }
 
-func (userRepo *userDao)Create( tpu *models.User) (int64, error) {
+func (userRepo *userDao) Create( tpu *models.User) (int64, error) {
 	res := userRepo.Conn.Save(tpu)
 	return res.RowsAffected, res.Error
 }
@@ -42,7 +42,7 @@ func (userRepo *userDao) RetrieveByEmail (email string) (*models.User, error)  {
 	return &user, nil
 }
 
-func (userRepo *userDao) ExistById(email string) bool  {
+func (userRepo *userDao) ExistByID(email string) bool  {
 	var user models.User
 	if err := userRepo.Conn.Where("email=?", email).First(&user).Error; err != nil && &user == nil {
 		return false

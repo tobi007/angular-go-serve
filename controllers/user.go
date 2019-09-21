@@ -13,17 +13,19 @@ import (
 	"net/http"
 )
 
+// NewUserController with db details
 func NewUserController(db *gorm.DB) *UserController {
 	return &UserController{
 		dao: dao.NewuserDao(db),
 	}
 }
 
+// UserController struct
 type UserController struct {
 	dao repository.UserRepo
 }
 
-// AddTodoHandler adds a new todo to the todo list
+// Create a new user
 func (u UserController) Create(c *gin.Context) {
 	user, statusCode, err := convertHTTPBodyToUser(c.Request.Body)
 	if err != nil {

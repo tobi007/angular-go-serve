@@ -15,4 +15,4 @@ cd ui && ng build --prod && cd ..
 go-bindata-assetfs dist/...
 
 mkdir releases \
-  && GOOS=windows GOARCH=amd64 go build && mv ./venus-third-party-app.exe ./releases/venus-third-party-ui.exe
+  && GOOS=windows GOARCH=amd64 go build && mv ./angular-go-server.exe ./releases/angular-go-server.exe
